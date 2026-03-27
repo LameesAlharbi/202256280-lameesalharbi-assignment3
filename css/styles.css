@@ -133,7 +133,7 @@ body {
   top: 0;
   z-index: 200;
   background: var(--glass-bg);
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(18px);
   border-bottom: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow);
