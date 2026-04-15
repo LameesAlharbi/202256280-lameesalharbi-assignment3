@@ -14,6 +14,15 @@ This project is an advanced, interactive personal portfolio. Building upon Assig
 * **Theme Memory:** Implements the **LocalStorage API** to save user preferences (Dark/Light mode), ensuring the theme persists even after a browser refresh.
 * **Responsive Glassmorphism:** A custom CSS architecture using `backdrop-filter: blur(20px)` and `box-sizing: border-box` to ensure pixel-perfect symmetry on mobile viewports.
 
+## How to Use the Website
+
+1. Open the homepage
+2. Navigate to the Projects section
+3. Use the filter buttons to view specific project types
+4. Toggle dark/light mode using the switch
+5. View project details dynamically loaded from GitHub
+
+
 ##  Project Structure
 To ensure "Separation of Concerns," the repository is organized as follows:
 * `index.html` — The semantic core of the application.
@@ -23,6 +32,17 @@ To ensure "Separation of Concerns," the repository is organized as follows:
 * `docs/` — **Mandatory Documentation:**
     * `ai-usage-report.md`: Detailed log of AI collaboration and problem-solving.
     * `technical-documentation.md`: Deep-dive into implementation logic and the folder structure.
+
+## 🛠️ Tech Stack
+
+- HTML → Structure of the website
+- CSS → Styling and layout
+- JavaScript → Interactivity and logic
+- GitHub API → Fetching dynamic project data
+
+### Why this stack?
+This stack was chosen because it is lightweight, easy to deploy, and suitable for building a fast and interactive portfolio without requiring a backend.
+
 
 ##  Setup & Local Testing
 1.  **Clone the Repo:** `git clone [Your-Link-Here]`
