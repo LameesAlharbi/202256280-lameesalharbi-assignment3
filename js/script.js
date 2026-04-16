@@ -378,6 +378,69 @@ async function fetchQuote() {
     quoteEl.innerHTML = `<p class="error-msg"> Couldn't load a quote right now. Check your connection and try again.</p>`;
   }
 }
+
+/* ============================================================
+   GITHUB API
+   ============================================================ */
+async function fetchGitHubRepos() {
+  const reposEl = document.getElementById("githubRepos");
+  if (!reposEl) return;
+
+  reposEl.innerHTML = `<p class="loading">Loading GitHub repositories...</p>`;
+
+  try {
+    const url = "https://api.github.com/users/LameesAlharbi/repos?sort=updated&per_page=6";
+    console.log("Fetching from:", url);
+
+    const res = await fetch(url, {
+  headers: {
+    Accept: "application/vnd.github+json",
+  }
+});
+
+    console.log("Response status:", res.status, res.statusText);
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      console.log("GitHub error body:", errorText);
+      throw new Error(`HTTP ${res.status} - ${res.statusText}`);
+    }
+
+    const repos = await res.json();
+    console.log("Repos received:", repos);
+
+    if (!Array.isArray(repos) || repos.length === 0) {
+      reposEl.innerHTML = `<p class="empty-state">No repositories found.</p>`;
+      return;
+    }
+
+    reposEl.innerHTML = "";
+
+    repos.forEach((repo) => {
+      const card = document.createElement("article");
+      card.className = "project-card";
+
+      card.innerHTML = `
+        <div class="project-content">
+          <h3>${repo.name}</h3>
+          <p>${repo.description ? repo.description : "No description available."}</p>
+          <span class="tag">${repo.language ? repo.language : "Code"}</span>
+          <p class="repo-meta">
+            ⭐ ${repo.stargazers_count} | 
+            <a href="${repo.html_url}" target="_blank" rel="noopener">View Repository</a>
+          </p>
+        </div>
+      `;
+
+      reposEl.appendChild(card);
+    });
+
+    window.dispatchEvent(new Event("cards-rendered"));
+  } catch (error) {
+    console.error("GitHub fetch failed:", error);
+    reposEl.innerHTML = `<p class="error-msg">Could not load GitHub repositories right now. Please try again later.</p>`;
+  }
+}
 /* ============================================================
    CONTACT FORM
    ============================================================ */
@@ -445,6 +508,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initTyping();
   initProjectFilter();
   fetchQuote();
+  fetchGitHubRepos();
   initContactForm();
   const refreshBtn = document.getElementById("refreshQuote");
   if (refreshBtn) refreshBtn.addEventListener("click", fetchQuote);
