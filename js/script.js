@@ -3,6 +3,10 @@
    CONSTANTS
    ============================================================ */
 const THEME_KEY = "lamees-portfolio-theme";
+const FILTER_KEY = "lamees-project-filter";
+const SEARCH_KEY = "lamees-project-search";
+const SORT_KEY = "lamees-project-sort";
+
 const projects = [
   {
     title: "QS Ranking Program",
@@ -211,29 +215,20 @@ function initCursor() {
   // This automatically disables it for iPads and iPhones!
   if (!window.matchMedia("(pointer: fine)").matches) return;
 
-  const cursor = document.createElement('div');
-  cursor.id = 'custom-cursor';
-  document.body.appendChild(cursor);
+  const cursor = document.getElementById("custom-cursor");
+  if (!cursor) return;
 
-  document.addEventListener('mousemove', (e) => {
-  const cursor = document.getElementById('custom-cursor');
-  if (cursor) {
- 
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
-    
- 
-    cursor.style.opacity = '1';
-  }
-});
+  document.addEventListener("mousemove", (e) => {
+    cursor.style.left = e.clientX + "px";
+    cursor.style.top = e.clientY + "px";
+    cursor.style.opacity = "1";
+  });
 
-
-document.addEventListener('mouseleave', () => {
-  const cursor = document.getElementById('custom-cursor');
-  if (cursor) cursor.style.opacity = '0';
-});
-
+  document.addEventListener("mouseleave", () => {
+    cursor.style.opacity = "0";
+  });
 }
+
 /* ============================================================
    TYPING EFFECT
    ============================================================ */
@@ -298,18 +293,24 @@ function setYear() {
 /* ============================================================
    PROJECT RENDERING
    ============================================================ */
-function renderProjects(filter = "all", query = "") {
+function renderProjects(filter = "all", query = "", sort = "default") {
   const grid = document.getElementById("projectsGrid");
   if (!grid) return;
   grid.style.opacity = "0";
   setTimeout(() => {
     grid.innerHTML = "";
     const term = query.toLowerCase().trim();
-    const filtered = projects.filter(p => {
-      const matchCategory = filter === "all" || p.category === filter;
-      const matchSearch   = !term || p.title.toLowerCase().includes(term) || p.desc.toLowerCase().includes(term);
-      return matchCategory && matchSearch;
-    });
+    let filtered = projects.filter(p => {
+  const matchCategory = filter === "all" || p.category === filter;
+  const matchSearch   = !term || p.title.toLowerCase().includes(term) || p.desc.toLowerCase().includes(term);
+  return matchCategory && matchSearch;
+  });
+
+  if (sort === "az") {
+    filtered.sort((a, b) => a.title.localeCompare(b.title));
+  } else if (sort === "za") {
+  filtered.sort((a, b) => b.title.localeCompare(a.title));
+  }
     if (filtered.length === 0) {
       grid.innerHTML = `<p class="empty-state">No projects found. Try a different filter or search term.</p>`;
     } else {
@@ -338,24 +339,49 @@ function renderProjects(filter = "all", query = "") {
 function initProjectFilter() {
   const buttons     = document.querySelectorAll(".filter-btn");
   const searchInput = document.getElementById("projectSearch");
+  const sortSelect  = document.getElementById("projectSort");
+
   if (!buttons.length) return;
-  let activeFilter = "all";
-  let searchQuery  = "";
+
+  let activeFilter = localStorage.getItem(FILTER_KEY) || "all";
+  let searchQuery  = localStorage.getItem(SEARCH_KEY) || "";
+  let sortValue    = localStorage.getItem(SORT_KEY) || "default";
+
   buttons.forEach(btn => {
+    const isActive = btn.dataset.filter === activeFilter;
+    btn.classList.toggle("active", isActive);
+
     btn.addEventListener("click", () => {
       buttons.forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
       activeFilter = btn.dataset.filter;
-      renderProjects(activeFilter, searchQuery);
+
+      localStorage.setItem(FILTER_KEY, activeFilter);
+      renderProjects(activeFilter, searchQuery, sortValue);
     });
   });
+
   if (searchInput) {
+    searchInput.value = searchQuery;
+
     searchInput.addEventListener("input", () => {
       searchQuery = searchInput.value;
-      renderProjects(activeFilter, searchQuery);
+      localStorage.setItem(SEARCH_KEY, searchQuery);
+      renderProjects(activeFilter, searchQuery, sortValue);
     });
   }
-  renderProjects();
+
+  if (sortSelect) {
+    sortSelect.value = sortValue;
+
+    sortSelect.addEventListener("change", () => {
+      sortValue = sortSelect.value;
+      localStorage.setItem(SORT_KEY, sortValue);
+      renderProjects(activeFilter, searchQuery, sortValue);
+    });
+  }
+
+  renderProjects(activeFilter, searchQuery, sortValue);
 }
 /* ============================================================
    QUOTE API
@@ -390,7 +416,7 @@ async function fetchGitHubRepos() {
 
   try {
     const url = "https://api.github.com/users/LameesAlharbi/repos?sort=updated&per_page=6";
-    console.log("Fetching from:", url);
+
 
     const res = await fetch(url, {
   headers: {
@@ -398,16 +424,12 @@ async function fetchGitHubRepos() {
   }
 });
 
-    console.log("Response status:", res.status, res.statusText);
-
     if (!res.ok) {
       const errorText = await res.text();
-      console.log("GitHub error body:", errorText);
       throw new Error(`HTTP ${res.status} - ${res.statusText}`);
     }
 
     const repos = await res.json();
-    console.log("Repos received:", repos);
 
     if (!Array.isArray(repos) || repos.length === 0) {
       reposEl.innerHTML = `<p class="empty-state">No repositories found.</p>`;
@@ -437,7 +459,6 @@ async function fetchGitHubRepos() {
 
     window.dispatchEvent(new Event("cards-rendered"));
   } catch (error) {
-    console.error("GitHub fetch failed:", error);
     reposEl.innerHTML = `<p class="error-msg">Could not load GitHub repositories right now. Please try again later.</p>`;
   }
 }

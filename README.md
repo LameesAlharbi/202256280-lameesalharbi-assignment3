@@ -1,59 +1,104 @@
-#  Interactive Software Portfolio — Assignment 2
+# Interactive Software Portfolio — Assignment 3
+
 **Student:** Lamees Alharbi  
 **Course:** SWE363: Web Engineering  
 **Institution:** KFUPM  
 
 ---
 
-##  Project Overview
-This project is an advanced, interactive personal portfolio. Building upon Assignment 1, this version transitions from a static site to a dynamic web application featuring **Glassmorphism UI**, **Asynchronous Data Fetching**, and **State Persistence**. It is engineered to be fully responsive across high-end mobile devices (iPhone 17 Pro) and tablets (iPad Air).
+## Project Overview
+This project is an advanced, interactive personal portfolio website. Building upon previous assignments, this version enhances the application with external API integration, advanced logic (filtering, searching, and sorting), state persistence, and improved documentation.
 
-##  Key Technical Features
-* **Dynamic Greeting Component:** Uses JavaScript `Date()` objects to provide a real-time, context-aware welcome message.
-* **Third-Party API Integration:** Utilizes the `fetch` API with `async/await` to pull daily quotes from **DummyJSON**, including a "Loading..." state for better UX.
-* **Theme Memory:** Implements the **LocalStorage API** to save user preferences (Dark/Light mode), ensuring the theme persists even after a browser refresh.
-* **Responsive Glassmorphism:** A custom CSS architecture using `backdrop-filter: blur(20px)` and `box-sizing: border-box` to ensure pixel-perfect symmetry on mobile viewports.
+---
 
-## How to Use the Website
+## Key Features
+
+### API Integration
+- Fetches inspirational quotes using the DummyJSON API
+- Displays live GitHub repositories using the GitHub API
+- Includes loading states and error handling
+
+### Project Logic
+- Filter projects by category
+- Search projects by title or description
+- Sort projects (A–Z / Z–A)
+
+### State Management
+- Saves theme (dark/light mode)
+- Remembers filter, search, and sort after refresh
+
+### UI & Interactivity
+- Time-based greeting
+- Typing animation
+- Interactive project cards
+- Custom cursor (desktop only)
+
+### Performance & Responsiveness
+- Responsive across mobile, tablet, and desktop
+- Lazy loading images
+- Clean separation of HTML, CSS, and JavaScript
+
+---
+
+## How to Use
 
 1. Open the homepage
-2. Navigate to the Projects section
-3. Use the filter buttons to view specific project types
-4. Toggle dark/light mode using the switch
-5. View project details dynamically loaded from GitHub
+2. Go to the Projects section
+3. Use filters to select categories
+4. Use search to find projects
+5. Use sort dropdown (A–Z / Z–A)
+6. View live GitHub projects
+7. Refresh the quote section
+8. Toggle dark/light mode
+9. Refresh page to see saved preferences
+10. Test the contact form
 
+---
 
-##  Project Structure
-To ensure "Separation of Concerns," the repository is organized as follows:
-* `index.html` — The semantic core of the application.
-* `css/styles.css` — Contains advanced layout logic, CSS variables, and media queries.
-* `js/script.js` — Handles DOM manipulation, API calls, and event listeners.
-* `assets/images/` — Contains optimized project images and personal Memoji.
-* `docs/` — **Mandatory Documentation:**
-    * `ai-usage-report.md`: Detailed log of AI collaboration and problem-solving.
-    * `technical-documentation.md`: Deep-dive into implementation logic and the folder structure.
+## Project Structure
 
-## 🛠️ Tech Stack
+- `index.html` — main structure of the website
+- `css/styles.css` — styling, layout, and responsive design
+- `js/script.js` — logic, interactivity, APIs, and state management
+- `assets/images/` — images and visual assets
+- `docs/ai-usage-report.md` — AI usage documentation
+- `docs/technical-documentation.md` — technical explanation
 
-- HTML → Structure of the website
-- CSS → Styling and layout
-- JavaScript → Interactivity and logic
-- GitHub API → Fetching dynamic project data
+---
 
-### Why this stack?
-This stack was chosen because it is lightweight, easy to deploy, and suitable for building a fast and interactive portfolio without requiring a backend.
+## Tech Stack
 
+- HTML5 → Structure
+- CSS3 → Styling & layout
+- JavaScript → Logic & interactivity
+- GitHub API → Live repositories
+- DummyJSON API → Quotes
 
-##  Setup & Local Testing
-1.  **Clone the Repo:** `git clone [Your-Link-Here]`
-2.  **Run Locally:** Open `index.html` with the **Live Server** extension in VS Code.
-3.  **Responsive Testing:** Open Developer Tools (`F12`) and test using the following dimensions:
+---
+
+## Setup
+
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/LameesAlharbi/202256280-lameesalharbi-assignment3.git
+2. Open in VS Code
+3. Run with Live Server
+4.  **Responsive Testing:** Open Developer Tools (`F12`) and test using the following dimensions:
     * **iPhone:** 440px x 956px
     * **iPad:** 834px x 1194px
 
 ##  AI Integration Summary
-AI (Gemini) was utilized for complex UI debugging—specifically solving the "sticky cursor" bug on touch screens and fixing horizontal overflow on the iPhone viewport. A full breakdown of prompts and learning outcomes is available in `docs/ai-usage-report.md`.
+AI tools (Gemini and ChatGPT) were used to assist with debugging, feature planning, API integration, and improving overall code structure. 
+All AI-generated suggestions were reviewed, tested, and modified before being integrated into the project.
+Full details are provided in:
+- `docs/ai-usage-report.md`
 
+##  Technical Documentation
+See: docs/technical-documentation.md
+
+##  Notes
+GitHub API may be rate-limited
+All features tested manually
 ---
 **Author:** Lamees Alharbi  
 *Software Engineering Student @ KFUPM*

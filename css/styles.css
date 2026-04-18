@@ -109,7 +109,7 @@ body {
   pointer-events: none;
   z-index: 9999;
   
-  /* ADD THIS LINE: It starts invisible so the (0,0) dot won't show */
+  /* Start hidden to avoid showing at (0,0) */
   opacity: 0; 
   
   transition: opacity 0.3s ease;
@@ -495,6 +495,28 @@ body {
   transition: border-color var(--transition);
   min-width: 180px;
 }
+
+.sort-select {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: var(--text-main);
+  padding: 7px 16px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  outline: none;
+  backdrop-filter: blur(8px);
+  transition: border-color var(--transition);
+  min-width: 160px;
+}
+
+.sort-select:focus {
+  border-color: var(--accent);
+}
+
+.sort-select option {
+  color: #111;
+}
+
 .search-input::placeholder { color: var(--text-muted); }
 .search-input:focus {
   border-color: var(--accent);
@@ -543,6 +565,9 @@ body {
   font-size: 0.88rem;
   line-height: 1.6;
   margin-bottom: 12px;
+}
+.repo-meta {
+  margin-top: 12px;
 }
 .tag {
   display: inline-block;

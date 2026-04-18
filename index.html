@@ -43,7 +43,7 @@
       <div class="hero-text">
         <p id="greeting" class="greeting"></p>
         <h1>Hi, I'm <span class="name">Lamees Alharbi</span></h1>
-        <p class="tagline" style="min-height: 1.5em;"></p>
+        <p class="tagline"></p>
         <p class="intro">
           I'm a Software Engineering student passionate about turning ideas into real,
           functional systems. I enjoy building thoughtful solutions and simplifying complex problems.
@@ -111,6 +111,13 @@
             <button class="filter-btn" data-filter="python">Python</button>
             <button class="filter-btn" data-filter="data">Data Science</button>
           </div>
+
+          <select id="projectSort" class="sort-select" aria-label="Sort projects">
+            <option value="default">Sort: Default</option>
+            <option value="az">Sort: A–Z</option>
+            <option value="za">Sort: Z–A</option>
+          </select>
+
           <input
             type="search"
             id="projectSearch"
