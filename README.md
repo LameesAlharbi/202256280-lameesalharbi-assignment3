@@ -87,18 +87,26 @@ This project is an advanced, interactive personal portfolio website. Building up
     * **iPhone:** 440px x 956px
     * **iPad:** 834px x 1194px
 
+---
+
 ##  AI Integration Summary
 AI tools (Gemini and ChatGPT) were used to assist with debugging, feature planning, API integration, and improving overall code structure. 
 All AI-generated suggestions were reviewed, tested, and modified before being integrated into the project.
 Full details are provided in:
 - `docs/ai-usage-report.md`
 
+---
+
 ##  Technical Documentation
-See: docs/technical-documentation.md
+See: `docs/technical-documentation.md`
+
+---
 
 ##  Notes
-GitHub API may be rate-limited
-All features tested manually
+- GitHub API may be rate-limited
+- All features tested manually
+
 ---
+
 **Author:** Lamees Alharbi  
 *Software Engineering Student @ KFUPM*
